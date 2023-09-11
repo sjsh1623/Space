@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sjsh1623.space"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +26,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "experiments": {
+      "tsconfigPaths": true
     }
   }
 }
