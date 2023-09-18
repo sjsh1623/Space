@@ -3,7 +3,12 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "screens": ["src/screens"]
+      "screens": [
+        "src/screens"
+      ],
+      "navigation": [
+        "src/navigation"
+      ]
     }
   }
 }
