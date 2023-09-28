@@ -1,34 +1,41 @@
-import {StyleSheet, Text, View} from 'react-native';
-import Constants from 'expo-constants';
+import {Animated, StyleSheet, Text, View} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 import {useEffect, useState} from "react";
 import Geolocation from "react-native-geolocation-service";
+import {getLocationByCoordinate} from "./src/api/get/thirdparty/Google";
+import add = Animated.add;
 
-interface ILocation {
+interface Coordinate {
     latitude: number;
     longitude: number;
 }
 
+interface Address {
+    coordinate: Coordinate;
+    address: string;
+    title: string;
+}
+
 export default function App() {
-    const [location, setLocation] = useState<ILocation | undefined>();
-    const [markers, setMarkers] = useState([])
-        useEffect(() => {
-            Geolocation.requestAuthorization("whenInUse").then(() => {
-                Geolocation.getCurrentPosition(
-                    (position) => {
-                        const {latitude, longitude} = position.coords;
-                        setLocation({
-                            latitude,
-                            longitude,
-                        });
-                    },
-                    error => {
-                        console.log(error.code, error.message);
-                    },
-                    {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-                );
-            })
-        }, []);
+    const [addressList, setAddressList] = useState<Array<Address | undefined>>([]);
+    const [location, setLocation] = useState<Coordinate | undefined>();
+    useEffect(() => {
+        Geolocation.requestAuthorization("whenInUse").then(() => {
+            Geolocation.getCurrentPosition(
+                (position) => {
+                    const {latitude, longitude} = position.coords;
+                    setLocation({
+                        latitude,
+                        longitude,
+                    });
+                },
+                error => {
+                    console.log(error.code, error.message);
+                },
+                {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+            );
+        })
+    }, []);
 
 
     if (!location) {
@@ -51,24 +58,25 @@ export default function App() {
                         latitudeDelta: 0.0922,
                         longitudeDelta: 0.0421,
                     }}
-                    onPress={(location) => {
-                        const { coordinate } = location.nativeEvent;
-                        const newMarker = {
-                            coordinate,
-                            title: '새로운 마커', // 마커의 제목
-                            description: '이것은 새로운 마커입니다.', // 마커의 설명
-                        };
-                        setMarkers([...markers, newMarker]); // 새로운 마커를 마커 목록에 추가
-                        console.log(markers)
-                        console.log(process.env.MAP_MARKER_MAXIMUM)
+                    onPress={async (location) => {
+                        const {coordinate} = location.nativeEvent;
+                        const addressInfo = await getLocationByCoordinate(coordinate.latitude, coordinate.longitude);
+                        const formattedAddress = addressInfo.results[0].formatted_address
+                        const shortName = addressInfo.results[0].address_components[1].short_name;
+                        const address: Address = {
+                            coordinate: coordinate,
+                            address: formattedAddress,
+                            title: shortName
+                        }
+                        setAddressList( [...addressList, address]);
                     }}
                 >
-                    {markers.map((marker, index) => (
+                    {addressList.map((marker, index) => (
                         <Marker
                             key={index}
                             coordinate={marker.coordinate}
                             title={marker.title}
-                            description={marker.description}
+                            description={marker.address}
                         />
                     ))}
                 </MapView>
