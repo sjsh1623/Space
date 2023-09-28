@@ -1,8 +1,7 @@
-import {StatusBar} from 'expo-status-bar';
-import {NavigationContainer} from '@react-navigation/native';
 import {StyleSheet, Text, View} from 'react-native';
+import Constants from 'expo-constants';
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState} from "react";
 import Geolocation from "react-native-geolocation-service";
 
 interface ILocation {
@@ -61,6 +60,7 @@ export default function App() {
                         };
                         setMarkers([...markers, newMarker]); // 새로운 마커를 마커 목록에 추가
                         console.log(markers)
+                        console.log(process.env.MAP_MARKER_MAXIMUM)
                     }}
                 >
                     {markers.map((marker, index) => (
