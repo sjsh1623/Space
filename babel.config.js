@@ -9,6 +9,7 @@ module.exports = function(api) {
           moduleName: "react-native-dotenv",
         },
       ],
+      'react-native-reanimated/plugin', // This plugin should be at the last
     ],
   };
 };

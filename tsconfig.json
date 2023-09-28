@@ -8,6 +8,9 @@
       ],
       "navigation": [
         "src/navigation"
+      ],
+      "api": [
+        "src/api"
       ]
     }
   }
