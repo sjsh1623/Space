@@ -3,7 +3,7 @@ import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Geolocation from "react-native-geolocation-service";
 import {getLocationByCoordinate} from "api/get/thirdparty/Google";
-import {BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet";
+import {BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView} from "@gorhom/bottom-sheet";
 
 interface Coordinate {
     latitude: number;
@@ -20,7 +20,6 @@ export default function pinLocation() {
     const [addressList, setAddressList] = useState<Array<Address | undefined>>([]);
     const [location, setLocation] = useState<Coordinate | undefined>();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-    const snapPoints = useMemo(() => ['25%', '50%'], []);
     const handlePresentModalPress = useCallback(() => {
         bottomSheetModalRef.current?.present();
     }, []);
@@ -90,29 +89,80 @@ export default function pinLocation() {
                     ))}
                 </MapView>
             </View>
-            <BottomSheetModal
-                ref={bottomSheetModalRef}
-                index={1}
-                snapPoints={snapPoints}
-                onChange={handleSheetChanges}
-            >
-                <View style={styles.contentContainer}>
-                    <Text>Awesome 🎉</Text>
-                </View>
-            </BottomSheetModal>
+
+            <BottomAddressSheet props={{bottomSheetModalRef, handleSheetChanges, addressList}}/>
         </BottomSheetModalProvider>
+    );
+}
+
+const BottomAddressSheet = ({props}) => {
+    const {bottomSheetModalRef, handleSheetChanges, addressList} = props;
+    const snapPoints = useMemo(() => ['25%', '50%', '100%'], []);
+
+    return (
+        <BottomSheetModal
+            ref={bottomSheetModalRef}
+            index={1}
+            snapPoints={snapPoints}
+            onChange={handleSheetChanges}
+            enablePanDownToClose={false}
+        >
+            <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
+                <Text>asd</Text>
+            </BottomSheetScrollView>
+        </BottomSheetModal>
+    )
+}
+
+const addressElement = (address: Address) => {
+    return (
+        <View style={styles.container}>
+            <View style={styles.leftIcon}>
+                <Feather name="message-circle" size={32} color="#0099ff" />
+            </View>
+            <View style={styles.rightContent}>
+                <Text style={styles.username}>{username}</Text>
+                <Text style={styles.message}>{message}</Text>
+            </View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 24,
-        justifyContent: 'center',
-        backgroundColor: 'grey',
+        paddingTop: 200,
     },
     contentContainer: {
-        flex: 1,
+        backgroundColor: "white",
+    },
+    itemContainer: {
+        padding: 6,
+        margin: 6,
+        backgroundColor: "#eee",
+    },
+});
+
+const element = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
         alignItems: 'center',
+        padding: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+    },
+    leftIcon: {
+        marginRight: 16,
+    },
+    rightContent: {
+        flex: 1,
+    },
+    username: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginBottom: 4,
+    },
+    message: {
+        fontSize: 14,
     },
 });
