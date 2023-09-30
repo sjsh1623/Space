@@ -4,6 +4,7 @@ import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Geolocation from "react-native-geolocation-service";
 import {getLocationByCoordinate} from "api/get/thirdparty/Google";
 import {BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView} from "@gorhom/bottom-sheet";
+import {MaterialIcons} from '@expo/vector-icons';
 
 interface Coordinate {
     latitude: number;
@@ -16,15 +17,12 @@ interface Address {
     title: string;
 }
 
-export default function pinLocation() {
+export default function PinLocation() {
     const [addressList, setAddressList] = useState<Array<Address | undefined>>([]);
     const [location, setLocation] = useState<Coordinate | undefined>();
     const bottomSheetModalRef = useRef<BottomSheetModal>(null);
     const handlePresentModalPress = useCallback(() => {
         bottomSheetModalRef.current?.present();
-    }, []);
-    const handleSheetChanges = useCallback((index: number) => {
-        console.log('handleSheetChanges', index);
     }, []);
     useEffect(() => {
         Geolocation.requestAuthorization("whenInUse").then(() => {
@@ -90,25 +88,24 @@ export default function pinLocation() {
                 </MapView>
             </View>
 
-            <BottomAddressSheet props={{bottomSheetModalRef, handleSheetChanges, addressList}}/>
+            <BottomAddressSheet props={{bottomSheetModalRef, addressList}}/>
         </BottomSheetModalProvider>
     );
 }
 
 const BottomAddressSheet = ({props}) => {
-    const {bottomSheetModalRef, handleSheetChanges, addressList} = props;
+    const {bottomSheetModalRef, addressList} = props;
     const snapPoints = useMemo(() => ['25%', '50%', '100%'], []);
-
+    const renderItem = useCallback((item) => (addressElement(item)), []);
     return (
         <BottomSheetModal
             ref={bottomSheetModalRef}
             index={1}
             snapPoints={snapPoints}
-            onChange={handleSheetChanges}
-            enablePanDownToClose={false}
+            enablePanDownToClose={false} // Make this bottom sheet never disappear
         >
             <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-                <Text>asd</Text>
+                {addressList.map(renderItem)}
             </BottomSheetScrollView>
         </BottomSheetModal>
     )
@@ -116,13 +113,13 @@ const BottomAddressSheet = ({props}) => {
 
 const addressElement = (address: Address) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.leftIcon}>
-                <Feather name="message-circle" size={32} color="#0099ff" />
+        <View style={element.container}>
+            <View style={element.leftIcon}>
+                <MaterialIcons name="local-parking" size={24} color="black"/>
             </View>
-            <View style={styles.rightContent}>
-                <Text style={styles.username}>{username}</Text>
-                <Text style={styles.message}>{message}</Text>
+            <View style={element.rightContent}>
+                <Text style={element.username}>{address.title}</Text>
+                <Text style={element.message}>{address.address}</Text>
             </View>
         </View>
     );
