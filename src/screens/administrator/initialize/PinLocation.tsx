@@ -100,7 +100,7 @@ export default function PinLocation() {
 const BottomAddressSheet = ({props}) => {
     const {bottomSheetModalRef, addressList} = props;
     const snapPoints = useMemo(() => ['35%', '60%', '80%'], []);
-    const renderItem = useCallback((item) => (addressElement(item)), []);
+    const renderItem = useCallback((item, key) => (addressElement(item, key)), []);
     return (
         <BottomSheetModal
             ref={bottomSheetModalRef}
@@ -121,9 +121,9 @@ const BottomAddressSheet = ({props}) => {
     )
 }
 
-const addressElement = (address: Address) => {
+const addressElement = (address: Address, key) => {
     return (
-        <View style={scrollElement.container}>
+        <View key={key} style={scrollElement.container}>
             <View style={scrollElement.leftIcon}>
                 <MaterialIcons name="local-parking" size={24} color="black"/>
             </View>
