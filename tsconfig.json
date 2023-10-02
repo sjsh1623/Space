@@ -11,6 +11,9 @@
       ],
       "api": [
         "src/api"
+      ],
+      "interface" : [
+        "src/interface"
       ]
     }
   }

@@ -3,24 +3,14 @@ import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Geolocation from "react-native-geolocation-service";
 import {getLocationByCoordinate} from "api/get/thirdparty/Google";
+import {MaterialIcons, MaterialCommunityIcons, Octicons} from '@expo/vector-icons';
+import {Coordinate, Address} from 'interface/Location'
 import {
     BottomSheetFooter,
     BottomSheetModal,
     BottomSheetModalProvider,
     BottomSheetScrollView
 } from "@gorhom/bottom-sheet";
-import {MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
-
-interface Coordinate {
-    latitude: number;
-    longitude: number;
-}
-
-interface Address {
-    coordinate: Coordinate;
-    address: string;
-    title: string;
-}
 
 interface Button {
     text: String;
@@ -68,7 +58,9 @@ const setLocationOnClick = async (location, handlePresentModalPress, setAddressL
     const address: Address = {
         coordinate: coordinate,
         address: formattedAddress,
-        title: shortName
+        title: shortName,
+        option: 'aboveGround',
+        floor: []
     }
     handlePresentModalPress()
     setAddressList([...addressList, address]);
@@ -92,9 +84,9 @@ const loadingView = () => {
  * @param props {bottomSheetModalRef, addressList} Thing that is need to open Bottom view
  */
 const BottomAddressSheet = ({props}) => {
-    const {bottomSheetModalRef, addressList} = props;
+    const {bottomSheetModalRef, addressList, setAddressList, removeAddressList} = props;
     const snapPoints = useMemo(() => ['35%', '60%', '80%'], []);
-    const renderItem = useCallback((item, key) => (addressElement(item, key)), []);
+    const renderItem = useCallback((item, key) => (addressElement(item, key, setAddressList, removeAddressList)), []);
     const renderFooter = useCallback((item) => (bottomSheetFooterElement(item)), []);
     return (
         <View>
@@ -124,16 +116,33 @@ const BottomAddressSheet = ({props}) => {
  * Element that is for address list element
  * @param address Address Interface
  * @param key Unique key
+ * @param setAddressList Function that set element
+ * @param removeAddressList Function that remove element
  */
-const addressElement = (address: Address, key: number) => {
+const addressElement = (address: Address, key: number, setAddressList, removeAddressList) => {
+    const maximumFloor = process.env.EXPO_PUBLIC_SUPPORT_MAX_FLOOR;
+    const underGround: string[] = Array.from({ length: maximumFloor }, (_, index) => `B${index + 1}`);
+    const aboveGround: string[] = Array.from({ length: maximumFloor }, (_, index) => `F${index + 1}`);
     return (
         <View key={key} style={scrollElement.container}>
             <View style={scrollElement.leftIcon}>
-                <MaterialIcons name="local-parking" size={24} color="black"/>
+                <MaterialIcons name="local-parking" size={28} color="black"/>
             </View>
             <View style={scrollElement.rightContent}>
                 <Text style={scrollElement.title}>{address.title}</Text>
                 <Text style={scrollElement.description}>{address.address}</Text>
+            </View>
+            <TouchableOpacity style={scrollElement.trashIcon} onPress={() => {
+                removeAddressList(address)
+            }}>
+                <Octicons name="trash" size={24} color="red"/>
+            </TouchableOpacity>
+            <View style={scrollElement.circleContainer}>
+                {underGround.map((circle, index) => (
+                    <View key={index} style={scrollElement.circle}>
+                        <Text style={scrollElement.circleText}>{circle}</Text>
+                    </View>
+                ))}
             </View>
         </View>
     );
@@ -159,6 +168,11 @@ export default function PinLocation() {
         setButtonConf({text: '다음', fontSize: 16, isNext: true})
         bottomSheetModalRef.current?.present();
     }, []);
+
+    const removeAddressList = (address: Address) => {
+        const updatedList = addressList.filter((ele) => ele.coordinate !== address.coordinate);
+        setAddressList(updatedList);
+    }
 
     useEffect(() => {
         getGeoLocation(setLocation)
@@ -193,7 +207,7 @@ export default function PinLocation() {
                     ))}
                 </MapView>
             </View>
-            <BottomAddressSheet props={{bottomSheetModalRef, addressList}}/>
+            <BottomAddressSheet props={{bottomSheetModalRef, addressList, setAddressList, removeAddressList}}/>
             <TouchableOpacity style={bottomSheet.button}>
                 <Text style={{...bottomSheet.buttonText, ...{fontSize: buttonConf.fontSize}}}>{buttonConf.text}</Text>
             </TouchableOpacity>
@@ -237,6 +251,26 @@ const scrollElement = StyleSheet.create({
     description: {
         fontSize: 14,
     },
+    trashIcon: {
+        marginLeft: 16,
+    },
+    circleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 8,
+    },
+    circle: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        backgroundColor: '#0099ff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    circleText: {
+        color: '#fff',
+        fontSize: 14,
+    }
 });
 
 const bottomSheet = StyleSheet.create({
