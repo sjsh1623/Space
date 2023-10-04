@@ -3,7 +3,7 @@ import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Geolocation from "react-native-geolocation-service";
 import {getLocationByCoordinate} from "api/get/thirdparty/Google";
-import {MaterialIcons, MaterialCommunityIcons, Octicons} from '@expo/vector-icons';
+import {MaterialIcons, MaterialCommunityIcons, Ionicons} from '@expo/vector-icons';
 import {Coordinate, Address} from 'interface/Location'
 import {
     BottomSheetFooter,
@@ -59,7 +59,6 @@ const setLocationOnClick = async (location, handlePresentModalPress, setAddressL
         coordinate: coordinate,
         address: formattedAddress,
         title: shortName,
-        option: 'aboveGround',
         floor: []
     }
     handlePresentModalPress()
@@ -121,23 +120,32 @@ const BottomAddressSheet = ({props}) => {
  */
 const addressElement = (address: Address, key: number, setAddressList, removeAddressList) => {
     const maximumFloor = process.env.EXPO_PUBLIC_SUPPORT_MAX_FLOOR;
-    const underGround: string[] = Array.from({ length: maximumFloor }, (_, index) => `B${index + 1}`);
-    const aboveGround: string[] = Array.from({ length: maximumFloor }, (_, index) => `F${index + 1}`);
+    const underGround: string[] = Array.from({length: maximumFloor}, (_, index) => `B${index + 1}`);
+    const aboveGround: string[] = Array.from({length: maximumFloor}, (_, index) => `F${index + 1}`);
     return (
         <View key={key} style={scrollElement.container}>
-            <View style={scrollElement.leftIcon}>
-                <MaterialIcons name="local-parking" size={28} color="black"/>
-            </View>
-            <View style={scrollElement.rightContent}>
-                <Text style={scrollElement.title}>{address.title}</Text>
-                <Text style={scrollElement.description}>{address.address}</Text>
-            </View>
-            <TouchableOpacity style={scrollElement.trashIcon} onPress={() => {
-                removeAddressList(address)
+            <View style={{
+                flex: 1, flexDirection: 'row',
             }}>
-                <Octicons name="trash" size={24} color="red"/>
-            </TouchableOpacity>
+                <View style={scrollElement.leftIcon}>
+                    <MaterialIcons name="local-parking" size={28} color="black"/>
+                    <MaterialIcons name="keyboard-arrow-down" size={28} color="black" />
+                </View>
+                <View style={scrollElement.rightContent}>
+                    <Text style={scrollElement.title}>{address.title}</Text>
+                    <Text style={scrollElement.description}>{address.address}</Text>
+                </View>
+                <TouchableOpacity style={scrollElement.trashIcon} onPress={() => {
+                    removeAddressList(address)
+                }}>
+                    <Ionicons name="trash-bin-outline" size={24} color="black" />
+                </TouchableOpacity>
+            </View>
+
             <View style={scrollElement.circleContainer}>
+                <View style={scrollElement.leftIcon}>
+                    <MaterialCommunityIcons name="stairs-down" size={24} color="black" />
+                </View>
                 {underGround.map((circle, index) => (
                     <View key={index} style={scrollElement.circle}>
                         <Text style={scrollElement.circleText}>{circle}</Text>
@@ -231,8 +239,6 @@ const styles = StyleSheet.create({
 
 const scrollElement = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        alignItems: 'center',
         padding: 16,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
@@ -256,20 +262,20 @@ const scrollElement = StyleSheet.create({
     },
     circleContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         marginTop: 8,
     },
     circle: {
-        width: 30,
-        height: 30,
+        width: 38,
+        height: 22,
         borderRadius: 15,
-        backgroundColor: '#0099ff',
+        backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
+        marginRight: 3
     },
     circleText: {
         color: '#fff',
-        fontSize: 14,
+        fontSize: 12,
     }
 });
 
