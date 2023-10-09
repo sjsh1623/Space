@@ -119,9 +119,6 @@ const BottomAddressSheet = ({props}) => {
  * @param removeAddressList Function that remove element
  */
 const addressElement = (address: Address, key: number, setAddressList, removeAddressList) => {
-    const maximumFloor = process.env.EXPO_PUBLIC_SUPPORT_MAX_FLOOR;
-    const underGround: string[] = Array.from({length: maximumFloor}, (_, index) => `B${index + 1}`);
-    const aboveGround: string[] = Array.from({length: maximumFloor}, (_, index) => `F${index + 1}`);
     return (
         <View key={key} style={scrollElement.container}>
             <View style={{
@@ -129,7 +126,6 @@ const addressElement = (address: Address, key: number, setAddressList, removeAdd
             }}>
                 <View style={scrollElement.leftIcon}>
                     <MaterialIcons name="local-parking" size={28} color="black"/>
-                    <MaterialIcons name="keyboard-arrow-down" size={28} color="black" />
                 </View>
                 <View style={scrollElement.rightContent}>
                     <Text style={scrollElement.title}>{address.title}</Text>
@@ -138,19 +134,8 @@ const addressElement = (address: Address, key: number, setAddressList, removeAdd
                 <TouchableOpacity style={scrollElement.trashIcon} onPress={() => {
                     removeAddressList(address)
                 }}>
-                    <Ionicons name="trash-bin-outline" size={24} color="black" />
+                    <Ionicons name="trash-bin-outline" size={21} color="black" />
                 </TouchableOpacity>
-            </View>
-
-            <View style={scrollElement.circleContainer}>
-                <View style={scrollElement.leftIcon}>
-                    <MaterialCommunityIcons name="stairs-down" size={24} color="black" />
-                </View>
-                {underGround.map((circle, index) => (
-                    <View key={index} style={scrollElement.circle}>
-                        <Text style={scrollElement.circleText}>{circle}</Text>
-                    </View>
-                ))}
             </View>
         </View>
     );
@@ -244,7 +229,9 @@ const scrollElement = StyleSheet.create({
         borderBottomColor: '#ddd',
     },
     leftIcon: {
-        marginRight: 16,
+        marginRight: 14,
+        marginTop: 8,
+
     },
     rightContent: {
         flex: 1,
@@ -258,24 +245,8 @@ const scrollElement = StyleSheet.create({
         fontSize: 14,
     },
     trashIcon: {
-        marginLeft: 16,
-    },
-    circleContainer: {
-        flexDirection: 'row',
-        marginTop: 8,
-    },
-    circle: {
-        width: 38,
-        height: 22,
-        borderRadius: 15,
-        backgroundColor: 'black',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 3
-    },
-    circleText: {
-        color: '#fff',
-        fontSize: 12,
+        marginLeft: 12,
+        marginTop: 11,
     }
 });
 
