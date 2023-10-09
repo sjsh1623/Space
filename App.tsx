@@ -3,6 +3,7 @@ import {GestureHandlerRootView} from "react-native-gesture-handler";
 import PinLocation from "screens/administrator/initialize/PinLocation";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import SetLocationDetail from "screens/administrator/initialize/SetLocationDetail";
 
 const Stack = createNativeStackNavigator();
 
@@ -12,6 +13,7 @@ export default function App() {
             <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Screen name="PinLocation" component={PinLocation} options={{headerShown: false}}/>
+                    <Stack.Screen name="SetLocationDetail" component={SetLocationDetail} options={{headerShown: false}}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </GestureHandlerRootView>

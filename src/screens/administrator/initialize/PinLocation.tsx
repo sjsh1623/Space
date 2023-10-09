@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Geolocation from "react-native-geolocation-service";
@@ -15,7 +15,7 @@ import {
 interface Button {
     text: String;
     fontSize: number;
-    isNext: boolean;
+    isNext: boolean; // Check if the bottom template is on or not
 }
 
 /**
@@ -134,7 +134,7 @@ const addressElement = (address: Address, key: number, setAddressList, removeAdd
                 <TouchableOpacity style={scrollElement.trashIcon} onPress={() => {
                     removeAddressList(address)
                 }}>
-                    <Ionicons name="trash-bin-outline" size={21} color="black" />
+                    <Ionicons name="trash-bin-outline" size={21} color="black"/>
                 </TouchableOpacity>
             </View>
         </View>
@@ -152,7 +152,11 @@ const bottomSheetFooterElement = (item) => {
     )
 }
 
-export default function PinLocation() {
+const goToNext = (navigation, addressList: Array<Address>, button: Button) => {
+    if(button.isNext) navigation.navigate('SetLocationDetail', {addressList :addressList})
+}
+
+export default function PinLocation({navigation}) {
     const [addressList, setAddressList] = useState<Array<Address | undefined>>([]);
     const [location, setLocation] = useState<Coordinate | undefined>();
     const [buttonConf, setButtonConf] = useState<Button>({text: '사용하실 주차장의 위치를 선택해주세요.', fontSize: 12, isNext: false});
@@ -185,7 +189,9 @@ export default function PinLocation() {
                         longitudeDelta: 0.0421,
                     }}
                     onPress={async (location) => {
-                        await setLocationOnClick(location, handlePresentModalPress, setAddressList, addressList)
+                        const maximumMarker = process.env.EXPO_PUBLIC_MAP_MARKER_MAXIMUM;
+                        if (Number(maximumMarker) >= addressList.length) await setLocationOnClick(location, handlePresentModalPress, setAddressList, addressList)
+                        else Alert.alert(`위치는 ${maximumMarker}곳 이상 선택할 수 없습니다.`);
                     }}
                 >
                     {addressList.map((marker, index) => (
@@ -201,7 +207,9 @@ export default function PinLocation() {
                 </MapView>
             </View>
             <BottomAddressSheet props={{bottomSheetModalRef, addressList, setAddressList, removeAddressList}}/>
-            <TouchableOpacity style={bottomSheet.button}>
+            <TouchableOpacity style={bottomSheet.button} onPress={() => {
+                goToNext(navigation, addressList, buttonConf)
+            }}>
                 <Text style={{...bottomSheet.buttonText, ...{fontSize: buttonConf.fontSize}}}>{buttonConf.text}</Text>
             </TouchableOpacity>
         </BottomSheetModalProvider>
