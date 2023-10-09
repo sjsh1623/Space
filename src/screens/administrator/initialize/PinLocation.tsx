@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Alert, Animated} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Geolocation from "react-native-geolocation-service";
@@ -11,6 +11,7 @@ import {
     BottomSheetModalProvider,
     BottomSheetScrollView
 } from "@gorhom/bottom-sheet";
+import add = Animated.add;
 
 interface Button {
     text: String;
