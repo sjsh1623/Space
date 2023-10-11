@@ -48,10 +48,9 @@ const getGeoLocation = (setLocation: (value: (((prevState: Coordinate) => Coordi
  * When user onPress map store the location along with the marker
  * @param location Clicked Location
  * @param handlePresentModalPress Open the modal when clicked
- * @param setAddressList Set address list function
- * @param addressList Address List
+ * @param addAddressList Set address list function
  */
-const setLocationOnClick = async (location, handlePresentModalPress, setAddressList, addressList) => {
+const setLocationOnClick = async (location, handlePresentModalPress, addAddressList) => {
     const {coordinate} = location.nativeEvent;
     const addressInfo = await getLocationByCoordinate(coordinate.latitude, coordinate.longitude);
     const formattedAddress = addressInfo.results[0].formatted_address
@@ -63,7 +62,8 @@ const setLocationOnClick = async (location, handlePresentModalPress, setAddressL
         floor: []
     }
     handlePresentModalPress()
-    setAddressList([...addressList, address]);
+    addAddressList(address);
+
 }
 
 /**
@@ -84,9 +84,9 @@ const loadingView = () => {
  * @param props {bottomSheetModalRef, addressList} Thing that is need to open Bottom view
  */
 const BottomAddressSheet = ({props}) => {
-    const {bottomSheetModalRef, addressList, setAddressList, removeAddressList} = props;
+    const {bottomSheetModalRef, addressList, removeAddressList} = props;
     const snapPoints = useMemo(() => ['35%', '60%', '80%'], []);
-    const renderItem = useCallback((item, key) => (addressElement(item, key, setAddressList, removeAddressList)), []);
+    const renderItem = useCallback((item, key) => (addressElement(item, key, removeAddressList)), []);
     const renderFooter = useCallback((item) => (bottomSheetFooterElement(item)), []);
     return (
         <View>
@@ -116,10 +116,9 @@ const BottomAddressSheet = ({props}) => {
  * Element that is for address list element
  * @param address Address Interface
  * @param key Unique key
- * @param setAddressList Function that set element
  * @param removeAddressList Function that remove element
  */
-const addressElement = (address: Address, key: number, setAddressList, removeAddressList) => {
+const addressElement = (address: Address, key: number, removeAddressList) => {
     return (
         <View key={key} style={scrollElement.container}>
             <View style={{
@@ -154,7 +153,7 @@ const bottomSheetFooterElement = (item) => {
 }
 
 const goToNext = (navigation, addressList: Array<Address>, button: Button) => {
-    if(button.isNext) navigation.navigate('SetLocationDetail', {addressList :addressList})
+    if (button.isNext) navigation.navigate('SetLocationDetail', {addressList: addressList})
 }
 
 export default function PinLocation({navigation}) {
@@ -167,10 +166,15 @@ export default function PinLocation({navigation}) {
         bottomSheetModalRef.current?.present();
     }, []);
 
-    const removeAddressList = (address: Address) => {
-        const updatedList = addressList.filter((ele) => ele.coordinate !== address.coordinate);
-        setAddressList(updatedList);
-    }
+    const addAddressList = (newAddress: Address) => {
+        setAddressList((prevAddressList) => [...prevAddressList, newAddress]);
+    };
+
+    const removeAddressList = (addressToRemove: Address) => {
+        setAddressList((prevAddressList) =>
+            prevAddressList.filter((address) => address.coordinate !== addressToRemove.coordinate)
+        );
+    };
 
     useEffect(() => {
         getGeoLocation(setLocation)
@@ -191,7 +195,7 @@ export default function PinLocation({navigation}) {
                     }}
                     onPress={async (location) => {
                         const maximumMarker = process.env.EXPO_PUBLIC_MAP_MARKER_MAXIMUM;
-                        if (Number(maximumMarker) >= addressList.length) await setLocationOnClick(location, handlePresentModalPress, setAddressList, addressList)
+                        if (Number(maximumMarker) >= addressList.length) await setLocationOnClick(location, handlePresentModalPress, addAddressList)
                         else Alert.alert(`위치는 ${maximumMarker}곳 이상 선택할 수 없습니다.`);
                     }}
                 >
@@ -207,7 +211,7 @@ export default function PinLocation({navigation}) {
                     ))}
                 </MapView>
             </View>
-            <BottomAddressSheet props={{bottomSheetModalRef, addressList, setAddressList, removeAddressList}}/>
+            <BottomAddressSheet props={{bottomSheetModalRef, addressList, removeAddressList}}/>
             <TouchableOpacity style={bottomSheet.button} onPress={() => {
                 goToNext(navigation, addressList, buttonConf)
             }}>
