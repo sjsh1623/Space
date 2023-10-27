@@ -12,6 +12,7 @@ import {
     BottomSheetScrollView
 } from "@gorhom/bottom-sheet";
 import add = Animated.add;
+import {get} from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 interface Button {
     text: String;
@@ -55,12 +56,14 @@ const setLocationOnClick = async (location, handlePresentModalPress, addAddressL
     const addressInfo = await getLocationByCoordinate(coordinate.latitude, coordinate.longitude);
     const formattedAddress = addressInfo.results[0].formatted_address
     const shortName = addressInfo.results[0].address_components[1].short_name;
-    const address: Address = {
-        coordinate: coordinate,
-        address: formattedAddress,
-        title: shortName,
-        floor: []
-    }
+    const address: Address =
+        {
+            coordinate: coordinate,
+            address: formattedAddress,
+            title: shortName,
+            floor: [],
+            index: getIndex()
+        }
     handlePresentModalPress()
     addAddressList(address);
 
@@ -140,6 +143,17 @@ const addressElement = (address: Address, key: number, removeAddressList) => {
         </View>
     );
 }
+
+
+const getCounter = () => {
+    let counter = 0;
+    return () => {
+        return counter++;
+    };
+}
+
+const getIndex = getCounter();
+
 /**
  * Space for the Button on the BottomView
  * @param item
@@ -153,6 +167,7 @@ const bottomSheetFooterElement = (item) => {
 }
 
 const goToNext = (navigation, addressList: Array<Address>, button: Button) => {
+    if (addressList.length === 0) return alert ('주차장을 한개 이상 선택해주세요')
     if (button.isNext) navigation.navigate('SetLocationDetail', {addressList: addressList})
 }
 
@@ -199,9 +214,9 @@ export default function PinLocation({navigation}) {
                         else Alert.alert(`위치는 ${maximumMarker}곳 이상 선택할 수 없습니다.`);
                     }}
                 >
-                    {addressList.map((marker, index) => (
+                    {addressList.map((marker) => (
                         <Marker
-                            key={index}
+                            key={marker.index}
                             coordinate={marker.coordinate}
                             title={marker.title}
                             description={marker.address}

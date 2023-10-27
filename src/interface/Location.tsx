@@ -8,4 +8,5 @@ export interface Address {
     address: string;
     title: string;
     floor : number[];
+    index : number;
 }
