@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {Address} from "interface/Location";
-import {TextInput, View, StyleSheet, Text, TouchableOpacity, Image} from "react-native";
+import {View, StyleSheet, Text, TouchableOpacity, Platform} from "react-native";
+import {TextInput} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 
 export default function SetLocationDetail({route}) {
@@ -43,65 +44,60 @@ export default function SetLocationDetail({route}) {
         <View style={styles.container}>
             <LinearGradient
                 colors={['black', 'transparent']}
-                start={{x: 0, y: 0.6}}
+                start={{x: 0, y: 0.85}}
                 end={{x: 0, y: 1}}
                 style={styles.gradient}
             />
             <View>
                 <LinearGradient
                     colors={['black', 'white']}
-                    start={{x: 0.2, y: 0.8}}
+                    start={{x: 0.2, y: 0.75}}
                     end={{x: 0.5, y: 1}}
                     style={[
                         styles.linearGradient,
                         {marginTop: 15, width: 100, borderRadius: 50}, // <-- Overwrites the preceding style property
                     ]}>
                     <View style={[styles.innerContainer, {borderRadius: 75}]}>
-                        <Text style={{color: 'white'}}>P</Text>
+                        <Text style={{color: 'white', fontSize: 55, fontWeight: 'bold'}}>P</Text>
                     </View>
                 </LinearGradient>
             </View>
-            <View>
+            <View style={{marginTop: 20, marginLeft: 5}}>
                 <Text style={styles.title}>{pageInfo.title}</Text>
                 <Text style={styles.description}>{pageInfo.address}</Text>
                 <View style={styles.horizontalLine}></View>
             </View>
-            <Text style={styles.label}>주차장 이름</Text>
-            <TextInput
-                style={[
-                    styles.input,
-                    isNameFocused ? {borderBottomColor: 'red'} : null,
-                ]}
-                placeholder="주차장의 이름을 작성해주세요"
-                value={name}
-                onChangeText={(text) => setName(text)}
-                onFocus={handleNameFocus}
-            />
+            <View style={{
+                marginTop: 60
+            }}>
+                <TextInput
+                    mode={'outlined'}
+                    label="주차장 이름"
+                    activeOutlineColor={'black'}
+                    value={''}
+                />
 
-            <Text style={styles.label}>설명</Text>
-            <TextInput
-                style={[
-                    styles.descriptionInput,
-                    isDescriptionFocused ? {borderColor: 'red'} : null,
-                ]}
-                placeholder="주차장에 대해서 간략하게 설명해주세요."
-                value={description}
-                onChangeText={(text) =>
-                    text.length <= 20 ? setDescription(text) : null
-                }
-                onFocus={handleDescriptionFocus}
-                maxLength={20}
-                multiline={true}
-                numberOfLines={3}
-            />
-            <View>
-                <View style={styles.iconContainer}>
-                    <Text style={styles.icon}>Icon</Text>
-                    <Text style={styles.title}>Title</Text>
-                </View>
+                <TextInput
+                    mode={'outlined'}
+                    label="설명"
+                    activeOutlineColor={'black'}
+                    multiline={true}
+                    numberOfLines={10}
+                    maxLength={20}
+                    value={''}
+                    style={{
+                        minHeight: (Platform.OS === 'ios') ? 200 : null
+                    }}
+                />
+                <View>
+                    <View style={styles.iconContainer}>
+                        <Text style={styles.icon}>Icon</Text>
+                        <Text style={styles.title}>Title</Text>
+                    </View>
 
-                <View style={styles.squareButtonsContainer}>
-                    {squareButtons}
+                    <View style={styles.squareButtonsContainer}>
+                        {squareButtons}
+                    </View>
                 </View>
             </View>
         </View>
@@ -111,13 +107,13 @@ export default function SetLocationDetail({route}) {
 const styles = StyleSheet.create({
     horizontalLine: {
         borderBottomWidth: 1, // Adjust the width as needed
-        borderBottomColor: 'black', // Change the color as needed
+        borderBottomColor: 'white', // Change the color as needed
         marginBottom: 30
     },
     container: {
         flex: 1,
         paddingHorizontal: 25,
-        paddingTop: 115,
+        paddingTop: 60,
         backgroundColor: 'white',
     },
     title: {
@@ -127,8 +123,10 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     description: {
+        color: 'white',
         fontSize: 14,
         marginBottom: 20,
+        fontWeight: 'bold'
     },
     label: {
         fontSize: 16,
@@ -186,7 +184,7 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        height: '55%',
+        height: '40%',
     },
     linearGradient: {
         height: 100,
@@ -194,10 +192,12 @@ const styles = StyleSheet.create({
         borderRadius: 15, // <-- Outer Border Radius
     },
     innerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         borderRadius: 15, // <-- Inner Border Radius
         flex: 1,
         margin: 5, // <-- Border Width
         backgroundColor: 'black',
-        justifyContent: 'center',
     },
 });
