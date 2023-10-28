@@ -1,12 +1,10 @@
 import {useState} from "react";
 import {Address} from "interface/Location";
 import {TextInput, View, StyleSheet, Text, TouchableOpacity, Image} from "react-native";
-import parkingDescription  from "assets/parkingDescription.jpeg"
-import parkingDesc1 from "assets/parkingDesc1.jpeg"
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function SetLocationDetail({route}) {
     const addressList: Array<Address> = route.params.addressList;
-    console.log(addressList)
     const [pageNum, setPageNum] = useState<number>(0);
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
@@ -28,7 +26,7 @@ export default function SetLocationDetail({route}) {
         setIsNameFocused(false);
     };
 
-    const squareButtons = Array.from({ length: process.env.EXPO_PUBLIC_SUPPORT_MAX_FLOOR }, (_, index) => (
+    const squareButtons = Array.from({length: process.env.EXPO_PUBLIC_SUPPORT_MAX_FLOOR}, (_, index) => (
         <TouchableOpacity
             key={index}
             style={[
@@ -43,15 +41,31 @@ export default function SetLocationDetail({route}) {
 
     return (
         <View style={styles.container}>
-            <View style={{paddingBottom: 30}}>
-                <Image
-                    source={parkingDesc1}
-                    style={{borderRadius:20, width: 100, height: 100}}
-                />
+            <LinearGradient
+                colors={['black', 'transparent']}
+                start={{x: 0, y: 0.6}}
+                end={{x: 0, y: 1}}
+                style={styles.gradient}
+            />
+            <View>
+                <LinearGradient
+                    colors={['black', 'white']}
+                    start={{x: 0.2, y: 0.8}}
+                    end={{x: 0.5, y: 1}}
+                    style={[
+                        styles.linearGradient,
+                        {marginTop: 15, width: 100, borderRadius: 50}, // <-- Overwrites the preceding style property
+                    ]}>
+                    <View style={[styles.innerContainer, {borderRadius: 75}]}>
+                        <Text style={{color: 'white'}}>P</Text>
+                    </View>
+                </LinearGradient>
             </View>
-            <Text style={styles.title}>{pageInfo.title}</Text>
-            <Text style={styles.description}>{pageInfo.address}</Text>
-
+            <View>
+                <Text style={styles.title}>{pageInfo.title}</Text>
+                <Text style={styles.description}>{pageInfo.address}</Text>
+                <View style={styles.horizontalLine}></View>
+            </View>
             <Text style={styles.label}>주차장 이름</Text>
             <TextInput
                 style={[
@@ -95,21 +109,26 @@ export default function SetLocationDetail({route}) {
 }
 
 const styles = StyleSheet.create({
+    horizontalLine: {
+        borderBottomWidth: 1, // Adjust the width as needed
+        borderBottomColor: 'black', // Change the color as needed
+        marginBottom: 30
+    },
     container: {
         flex: 1,
         paddingHorizontal: 25,
-        paddingTop: 75,
-        backgroundColor: 'white'
+        paddingTop: 115,
+        backgroundColor: 'white',
     },
     title: {
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
         marginBottom: 10,
+        color: 'white'
     },
     description: {
-        fontSize: 16,
+        fontSize: 14,
         marginBottom: 20,
-        color: 'gray',
     },
     label: {
         fontSize: 16,
@@ -161,5 +180,24 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 13
-    }
+    },
+    gradient: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '55%',
+    },
+    linearGradient: {
+        height: 100,
+        width: 100,
+        borderRadius: 15, // <-- Outer Border Radius
+    },
+    innerContainer: {
+        borderRadius: 15, // <-- Inner Border Radius
+        flex: 1,
+        margin: 5, // <-- Border Width
+        backgroundColor: 'black',
+        justifyContent: 'center',
+    },
 });
