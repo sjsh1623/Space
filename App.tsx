@@ -7,7 +7,7 @@ import SetLocationDetail from "screens/administrator/initialize/SetLocationDetai
 import {PaperProvider} from "react-native-paper";
 import EntryScreen from "./src/screens/authentication/signIn/EntryScreen";
 import SocialLoginScreen from "./src/screens/authentication/signIn/SocialLoginScreen";
-
+import SignInScreen from "./src/screens/authentication/signIn/SignInScreen"
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -17,7 +17,8 @@ export default function App() {
                 <NavigationContainer>
                     <Stack.Navigator>
                         {/*<Stack.Screen name="EntryScreen" component={EntryScreen} options={{headerShown: false}}/>*/}
-                        <Stack.Screen name="SocialLoginScreen" component={SocialLoginScreen} options={{headerShown: false}}/>
+                        {/*<Stack.Screen name="SocialLoginScreen" component={SocialLoginScreen} options={{headerShown: false}}/>*/}
+                        <Stack.Screen name="SignInScreen" component={SignInScreen} options={{headerShown: false}}/>
                     </Stack.Navigator>
                 </NavigationContainer>
             </PaperProvider>
