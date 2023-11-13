@@ -34,7 +34,9 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     contextContainer: {
-        marginLeft: 30,
-        marginTop: 40
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        padding:30
     }
 })
