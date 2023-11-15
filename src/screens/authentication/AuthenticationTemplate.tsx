@@ -7,11 +7,11 @@ interface AuthTempProps {
     context: React.FC
 }
 
-export default function AuthenticationTemplate(AuthTempProps) {
+export default function AuthenticationTemplate(AuthTempProps:AuthTempProps) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titleContainer}>
-                <Text variant="headlineMedium" style={styles.title}>{AuthTempProps.title}</Text>
+                <Text variant="headlineSmall" style={styles.title}>{AuthTempProps.title}</Text>
             </View>
             <View style={styles.contextContainer}>
                <AuthTempProps.context/>
@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         marginLeft: 30,
-        marginTop: 60
+        marginTop: 60,
+        marginBottom:20
     },
     title: {
         color: 'white',
