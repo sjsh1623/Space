@@ -4,7 +4,9 @@ import {TextInput} from "react-native-paper";
 interface AuthenticationField {
     title: string,
     placeholder: string,
-    style?: StyleProp<ViewStyle>
+    style?: StyleProp<ViewStyle>,
+    right? : React.ReactNode
+    autoFocus? : boolean
 }
 
 export function AuthenticationInput(AuthenticationField: AuthenticationField) {
@@ -22,6 +24,8 @@ export function AuthenticationInput(AuthenticationField: AuthenticationField) {
                 activeUnderlineColor={'white'}
                 underlineStyle={{borderColor: 'white'}}
                 placeholder={AuthenticationField.placeholder}
+                right={AuthenticationField.right}
+                autoFocus={AuthenticationField.autoFocus}
             />
         </View>
     )

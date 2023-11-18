@@ -1,4 +1,4 @@
-import signUpScreen from "screens/authentication/signUp/signUpScreen"
+import signUpScreen from "screens/authentication/signUp/SignUpScreen"
 import {createStackNavigator} from "@react-navigation/stack";
 
 const Stack = createStackNavigator();

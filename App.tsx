@@ -8,6 +8,9 @@ import {PaperProvider} from "react-native-paper";
 import EntryScreen from "./src/screens/authentication/signIn/EntryScreen";
 import SocialLoginScreen from "./src/screens/authentication/signIn/SocialLoginScreen";
 import SignInScreen from "./src/screens/authentication/signIn/SignInScreen"
+import SignUpScreen from "./src/screens/authentication/signUp/SignUpScreen";
+import EmailVerificationScreen from "./src/screens/authentication/signUp/EmailVerificationScreen";
+import SetPasswordScreen from "./src/screens/authentication/signUp/SetPasswordScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -18,7 +21,8 @@ export default function App() {
                     <Stack.Navigator>
                         {/*<Stack.Screen name="EntryScreen" component={EntryScreen} options={{headerShown: false}}/>*/}
                         {/*<Stack.Screen name="SocialLoginScreen" component={SocialLoginScreen} options={{headerShown: false}}/>*/}
-                        <Stack.Screen name="SignInScreen" component={SignInScreen} options={{headerShown: false}}/>
+                        {/*<Stack.Screen name="SignInScreen" component={SignInScreen} options={{headerShown: false}}/>*/}
+                        <Stack.Screen name="SignInScreen" component={SetPasswordScreen} options={{headerShown: false}}/>
                     </Stack.Navigator>
                 </NavigationContainer>
             </PaperProvider>
