@@ -1,8 +1,8 @@
-import AuthenticationTemplate from "../AuthenticationTemplate";
+import AuthenticationTemplate from "../../../template/AuthenticationTemplate";
 import {TextInput, Button} from 'react-native-paper';
 import {Text, StyleSheet, View, SafeAreaView, TouchableOpacity, Image} from "react-native";
 import {useEffect, useRef} from "react";
-import {AuthenticationInput} from "../../../element/CustomInput";
+import {AuthenticationInput} from "../../../element/Inputs";
 
 interface emailVerification {
     email: String
@@ -40,7 +40,7 @@ export default function EmailVerificationScreen(emailVerification) {
                 <Text style={{color: '#A8AAAA', fontSize: 13,}}>메일을 받지 못했다면 인증 코드 재전송 요청하거나 스팸 메일함을 확인해 보세요</Text>
                 <TouchableOpacity onPress={() => {
                 }}>
-                    <Text style={{textDecorationLine: 'underline', color:'white', marginTop: 15}}>인증 코드 재전송</Text>
+                    <Text style={{textDecorationLine: 'underline', color: 'white', marginTop: 15}}>인증 코드 재전송</Text>
                 </TouchableOpacity>
             </View>
         </View>

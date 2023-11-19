@@ -3,7 +3,7 @@ import {Text} from 'react-native-paper';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 
-export default function SocialLoginScreen() {
+export default function SocialLoginScreen({navigation}) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.logoContainer}>
@@ -20,6 +20,7 @@ export default function SocialLoginScreen() {
                     <Image source={require('assets/socialLogin/naver_circle.png')} style={{width: 50, height: 50}}/>
                 </View>
                 <TouchableOpacity onPress={() => {
+                    navigation.navigate('SignInScreen')
                 }} style={styles.mainSocialLoginButton}>
                     <MaterialCommunityIcons name="email-outline" color="white" size={24}/>
                     <Text style={{color: 'white', fontWeight: 'bold', fontSize: 14}}> 이메일로 로그인</Text>
@@ -28,6 +29,7 @@ export default function SocialLoginScreen() {
                     flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10
                 }}>
                     <TouchableOpacity onPress={() => {
+                        navigation.navigate('SignUpNav')
                     }}>
                         <Text style={{color: 'white'}}>회원가입</Text>
                     </TouchableOpacity>

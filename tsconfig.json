@@ -18,6 +18,12 @@
       "assets" : [
         "src/assets"
       ],
+      "templates" : [
+        "src/template"
+      ],
+      "element" : [
+        "src/element"
+        ]
     }
   }
 }

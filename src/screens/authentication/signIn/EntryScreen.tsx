@@ -3,7 +3,7 @@ import {Text} from 'react-native-paper';
 import {Ionicons} from '@expo/vector-icons';
 
 
-export default function EntryScreen() {
+export default function EntryScreen({navigation}) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.logoContainer}>
@@ -14,11 +14,12 @@ export default function EntryScreen() {
             {/*Login Buttons*/}
             <View style={styles.loginContainer}>
                 <TouchableOpacity onPress={() => {
+                    alert("Preparing...")
                 }}>
                     <Image source={require('assets/socialLogin/kakao_wide.png')}/>
                 </TouchableOpacity>
-
                 <TouchableOpacity onPress={() => {
+                    navigation.navigate('SignInNav')
                 }} style={styles.mainSocialLoginButton}>
                     <Text style={{color: 'white', fontWeight: 'bold'}}>다른 계정으로 로그인</Text>
                 </TouchableOpacity>

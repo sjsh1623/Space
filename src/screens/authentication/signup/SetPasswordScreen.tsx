@@ -1,8 +1,8 @@
-import AuthenticationTemplate from "../AuthenticationTemplate";
+import AuthenticationTemplate from "../../../template/AuthenticationTemplate";
 import {TextInput, Button} from 'react-native-paper';
 import {Text, StyleSheet, View, SafeAreaView, TouchableOpacity, Image} from "react-native";
 import {useEffect, useRef} from "react";
-import {AuthenticationInput} from "../../../element/CustomInput";
+import {AuthenticationInput} from "../../../component/Inputs";
 
 export default function SetPasswordScreen() {
 
@@ -15,12 +15,6 @@ export default function SetPasswordScreen() {
                 <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}}>
                     확인
                 </Button>
-            </View>
-            <View style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 20,
-            }}>
             </View>
         </View>
     )

@@ -1,8 +1,7 @@
-import AuthenticationTemplate from "../AuthenticationTemplate";
-import {TextInput, Button} from 'react-native-paper';
-import {Text, StyleSheet, View, SafeAreaView, TouchableOpacity, Image} from "react-native";
-import {useEffect, useRef} from "react";
-import {AuthenticationInput} from "../../../element/CustomInput";
+import AuthenticationTemplate from "template/AuthenticationTemplate";
+import {Button} from 'react-native-paper';
+import {View} from "react-native";
+import {AuthenticationInput} from "element/Inputs";
 
 export default function SignUpScreen() {
 
