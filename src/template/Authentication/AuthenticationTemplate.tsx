@@ -1,5 +1,4 @@
-import {ReactNode} from "react";
-import {StyleSheet, View, SafeAreaView, TouchableOpacity, Image} from "react-native";
+import {StyleSheet, View, SafeAreaView} from "react-native";
 import {Text} from 'react-native-paper';
 
 interface AuthTempProps {

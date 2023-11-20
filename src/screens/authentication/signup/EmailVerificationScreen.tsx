@@ -1,7 +1,7 @@
-import AuthenticationTemplate from "../../../template/AuthenticationTemplate";
+import AuthenticationTemplate from "../../../template/Authentication/AuthenticationTemplate";
 import {TextInput, Button} from 'react-native-paper';
 import {Text, StyleSheet, View, SafeAreaView, TouchableOpacity, Image} from "react-native";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {AuthenticationInput} from "../../../element/Inputs";
 
 interface emailVerification {
@@ -9,6 +9,9 @@ interface emailVerification {
 }
 
 export default function EmailVerificationScreen(emailVerification) {
+    const [error, setError] = useState<boolean>(false);
+    const [email, setEmail] = useState<String>('');
+
     const context: React.FC = () => (
         <View style={{width: '100%', backgroundColor: '#28282B'}}>
             <View style={{

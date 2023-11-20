@@ -4,9 +4,11 @@ import {TextInput} from "react-native-paper";
 interface AuthenticationField {
     title: string,
     placeholder: string,
+    onChangeText: (text: string) => void,
     style?: StyleProp<ViewStyle>,
-    right? : React.ReactNode
-    autoFocus? : boolean
+    right?: React.ReactNode
+    autoFocus?: boolean
+    error?: boolean,
 }
 
 export function AuthenticationInput(AuthenticationField: AuthenticationField) {
@@ -26,6 +28,8 @@ export function AuthenticationInput(AuthenticationField: AuthenticationField) {
                 placeholder={AuthenticationField.placeholder}
                 right={AuthenticationField.right}
                 autoFocus={AuthenticationField.autoFocus}
+                onChangeText={AuthenticationField.onChangeText}
+                error={AuthenticationField.error}
             />
         </View>
     )
