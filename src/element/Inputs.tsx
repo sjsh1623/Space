@@ -1,4 +1,9 @@
-import {StyleProp, StyleSheet, Text, View, ViewStyle} from "react-native";
+import {
+    StyleProp,
+    Text,
+    View,
+    ViewStyle,
+} from "react-native";
 import {TextInput} from "react-native-paper";
 
 interface AuthenticationField {

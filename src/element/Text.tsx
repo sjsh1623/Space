@@ -1,6 +1,4 @@
 import {StyleProp, Text, TextStyle, TouchableOpacity, ViewStyle} from "react-native";
-
-import {GestureResponderEvent} from "react-native/Libraries/Types/CoreEventTypes";
 import {ColorValue} from "react-native/Libraries/StyleSheet/StyleSheet";
 
 interface PressTextProps {

@@ -1,20 +1,30 @@
 import AuthenticationTemplate from "../../../template/Authentication/AuthenticationTemplate";
 import {Button} from 'react-native-paper';
 import {Text, View} from "react-native";
-import {useState} from "react";
 import {AuthenticationInput} from "element/Inputs";
+import {useState} from "react";
+import {validateEmail, validatePassword} from "util/Validation"
 
 export default function SignInScreen() {
     const [email, setEmail] = useState<String>('');
     const [password, setPassword] = useState<String>('')
+    const [emailError, setEmailError] = useState<boolean>(false);
+    const [passwordError, setPasswordError] = useState<boolean>(false);
 
+    const checkEmail = (input) => {
+    }
+
+    const checkPassword = () => {
+    }
 
     const context: React.FC = () => (
         <View style={{width: '100%', backgroundColor: '#28282B'}}>
             <AuthenticationInput
                 title={'이메일 주소'}
                 placeholder={'abc@space-parking.com'}
-                onChangeText={(email) => {setEmail(email)}}/>
+                onChangeText={(email) => {
+                    setEmail(email)
+                }}/>
 
             <AuthenticationInput
                 title={'비밀번호'}

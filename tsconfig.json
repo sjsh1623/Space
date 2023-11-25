@@ -23,7 +23,10 @@
       ],
       "element" : [
         "src/element"
-        ]
+        ],
+      "util" : [
+        "src/util"
+      ]
     }
   }
 }
