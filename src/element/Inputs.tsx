@@ -5,11 +5,15 @@ import {
     ViewStyle,
 } from "react-native";
 import {TextInput} from "react-native-paper";
+import {NativeSyntheticEvent} from "react-native/Libraries/Types/CoreEventTypes";
+import {TextInputFocusEventData} from "react-native/Libraries/Components/TextInput/TextInput";
 
 interface AuthenticationField {
     title: string,
     placeholder: string,
     onChangeText: (text: string) => void,
+    onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void,
+    onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void
     style?: StyleProp<ViewStyle>,
     right?: React.ReactNode
     autoFocus?: boolean
@@ -35,6 +39,8 @@ export function AuthenticationInput(AuthenticationField: AuthenticationField) {
                 autoFocus={AuthenticationField.autoFocus}
                 onChangeText={AuthenticationField.onChangeText}
                 error={AuthenticationField.error}
+                onFocus={AuthenticationField.onFocus}
+                onBlur={AuthenticationField.onBlur}
             />
         </View>
     )

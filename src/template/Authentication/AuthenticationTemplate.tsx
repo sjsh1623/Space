@@ -1,23 +1,23 @@
 import {StyleSheet, View, SafeAreaView} from "react-native";
 import {Text} from 'react-native-paper';
 
-interface AuthTempProps {
-    title: string,
-    context: React.FC
+export interface AuthTempProps {
+    title: string;
+    context: React.ReactNode; // Assuming context is a JSX element
 }
 
-export default function AuthenticationTemplate(AuthTempProps:AuthTempProps) {
+const AuthenticationTemplate: React.FC<AuthTempProps> = (props) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.titleContainer}>
-                <Text variant="headlineSmall" style={styles.title}>{AuthTempProps.title}</Text>
+                <Text variant="headlineSmall" style={styles.title}>{props.title}</Text>
             </View>
             <View style={styles.contextContainer}>
-               <AuthTempProps.context/>
+                {props.context}
             </View>
         </SafeAreaView>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -40,3 +40,5 @@ const styles = StyleSheet.create({
         padding:30
     }
 })
+
+export default AuthenticationTemplate;

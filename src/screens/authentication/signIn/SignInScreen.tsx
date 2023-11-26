@@ -3,25 +3,32 @@ import {Button} from 'react-native-paper';
 import {Text, View} from "react-native";
 import {AuthenticationInput} from "element/Inputs";
 import {useState} from "react";
-import {validateEmail, validatePassword} from "util/Validation"
+import {validateEmail, validatePassword, MessageState} from "util/Validation"
 
 export default function SignInScreen() {
     const [email, setEmail] = useState<String>('');
     const [password, setPassword] = useState<String>('')
-    const [emailError, setEmailError] = useState<boolean>(false);
-    const [passwordError, setPasswordError] = useState<boolean>(false);
+    const [emailError, setEmailError] = useState<MessageState>({message: '', isError: false});
+    const [passwordError, setPasswordError] = useState<MessageState>({message: '', isError: false});
 
-    const checkEmail = (input) => {
+    const validate = (value, type: 'email' | 'password') => {
+        console.log(value)
+        if (type === 'email') {
+            setEmailError(validateEmail(value));
+        } else {
+            setPasswordError(validatePassword(value));
+        }
     }
 
-    const checkPassword = () => {
-    }
-
-    const context: React.FC = () => (
+    const context: React.ReactNode = (
         <View style={{width: '100%', backgroundColor: '#28282B'}}>
             <AuthenticationInput
                 title={'이메일 주소'}
                 placeholder={'abc@space-parking.com'}
+                onBlur={(event) => {
+                    validate(event.nativeEvent.text, 'email')
+                }}
+                error={emailError.isError}
                 onChangeText={(email) => {
                     setEmail(email)
                 }}/>
@@ -30,7 +37,15 @@ export default function SignInScreen() {
                 title={'비밀번호'}
                 placeholder={'영문, 숫자, 특수문자'}
                 style={{marginTop: 45}}
+                onBlur={(event) => {
+                    validate(event.nativeEvent.text, 'password')
+                }}
+                error={passwordError.isError}
                 onChangeText={(password) => setPassword(password)}/>
+
+            <Text style={{color: 'red', marginTop: 7, fontSize: 13}}>
+                {emailError.message || passwordError.message}
+            </Text>
 
             <View style={{marginTop: 25}}>
                 <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}}>
