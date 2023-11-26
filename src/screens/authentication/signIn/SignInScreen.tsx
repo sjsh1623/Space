@@ -43,11 +43,11 @@ export default function SignInScreen() {
                 error={passwordError.isError}
                 onChangeText={(password) => setPassword(password)}/>
 
-            <Text style={{color: 'red', marginTop: 7, fontSize: 13}}>
+            <Text style={{color: 'red', marginTop: 5, fontSize: 13}}>
                 {emailError.message || passwordError.message}
             </Text>
 
-            <View style={{marginTop: 25}}>
+            <View style={{marginTop: 10}}>
                 <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}}>
                     로그인
                 </Button>
