@@ -1,7 +1,7 @@
 import AuthenticationTemplate from "template/Authentication/AuthenticationTemplate";
 import {TextInput, Button} from 'react-native-paper';
 import {Text, View, TouchableOpacity} from "react-native";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {AuthenticationInput} from "element/Inputs";
 import Ticker from 'util/Ticker';
 
@@ -13,25 +13,29 @@ export default function EmailVerificationScreen({navigation, props}) {
     const [error, setError] = useState<boolean>(false);
     const [email, setEmail] = useState<string>('');
     const [isTickerExist, setTickerExist] = useState<boolean>(false);
+    const emailTicker = useRef<Ticker | null>(null);
     const [ticker, setTicker] = useState<string>('');
 
-    const emailTicker =new Ticker((time) => {
-        setTicker(time);
-    }, 30); // Initialize with 2 minutes
+    useEffect(() => {
+        emailTicker.current = new Ticker((time) => {
+            setTicker(time);
+        }, 30);
+
+        emailTicker.current.start();
+        setTickerExist(true);
+
+        return () => {
+            if (emailTicker.current) {
+                emailTicker.current.stop();
+            }
+        };
+    }, []);
+
 
     const sendVerificationEmail = () => {
         // To-Do : Send an Email using an API
-        console.log('test')
-        emailTicker.reset();
+        emailTicker.current.reset();
     }
-
-    useEffect(() => {
-        // Your function to run on the first render
-        console.log(isTickerExist)
-        if(!isTickerExist) emailTicker.start();
-        setTickerExist(true)
-    }, []); // Empty dependency array ensures the effect runs only once on mount
-
 
     const context: React.ReactNode = (
         <View style={{width: '100%', backgroundColor: '#28282B'}}>
