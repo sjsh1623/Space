@@ -15,20 +15,20 @@ export default function EmailVerificationScreen({navigation, props}) {
     const [isTickerExist, setTickerExist] = useState<boolean>(false);
     const [ticker, setTicker] = useState<string>('');
 
-    const emailTicker =new Ticker((time) => {
+    const emailTicker = new Ticker((time) => {
         setTicker(time);
     }, 30); // Initialize with 2 minutes
 
     const sendVerificationEmail = () => {
         // To-Do : Send an Email using an API
-        console.log('test')
         emailTicker.reset();
+
     }
 
     useEffect(() => {
         // Your function to run on the first render
         console.log(isTickerExist)
-        if(!isTickerExist) emailTicker.start();
+        if (!isTickerExist) emailTicker.start();
         setTickerExist(true)
     }, []); // Empty dependency array ensures the effect runs only once on mount
 
@@ -45,22 +45,25 @@ export default function EmailVerificationScreen({navigation, props}) {
                     fontWeight: 'bold',
                 }}>코드 6자리 입력</Text>
             </View>
+
             <Text style={{
                 color: 'white',
                 fontSize: 14,
                 marginBottom: 40
             }}>계정 확인을 위해 위 메일로 보내드린 인증 코드를 입력해 주세요.</Text>
+
             <AuthenticationInput title={'인증 코드'} placeholder={'코드 6자리 입력'}
                                  right={<TextInput.Affix textStyle={{color: '#2edaff'}} text={ticker}/>}
                                  autoFocus={true}
                                  onChangeText={() => {
-                                 }
-                                 }/>
+                                 }}/>
+
             <View style={{marginTop: 25}}>
                 <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}}>
                     이메일 인증 완료
                 </Button>
             </View>
+
             <View style={{
                 paddingTop: 20
             }}>

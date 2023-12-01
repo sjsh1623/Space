@@ -12,7 +12,6 @@ export default function SignInScreen() {
     const [passwordError, setPasswordError] = useState<MessageState>({message: '', isError: false});
 
     const validate = (value, type: 'email' | 'password') => {
-        console.log(value)
         if (type === 'email') {
             setEmailError(validateEmail(value));
         } else {
