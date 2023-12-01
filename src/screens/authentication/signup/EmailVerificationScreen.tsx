@@ -1,7 +1,7 @@
 import AuthenticationTemplate from "template/Authentication/AuthenticationTemplate";
 import {TextInput, Button} from 'react-native-paper';
 import {Text, View, TouchableOpacity} from "react-native";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {AuthenticationInput} from "element/Inputs";
 import Ticker from 'util/Ticker';
 
@@ -13,25 +13,29 @@ export default function EmailVerificationScreen({navigation, props}) {
     const [error, setError] = useState<boolean>(false);
     const [email, setEmail] = useState<string>('');
     const [isTickerExist, setTickerExist] = useState<boolean>(false);
+    const emailTicker = useRef<Ticker | null>(null);
     const [ticker, setTicker] = useState<string>('');
 
-    const emailTicker = new Ticker((time) => {
-        setTicker(time);
-    }, 30); // Initialize with 2 minutes
+    useEffect(() => {
+        emailTicker.current = new Ticker((time) => {
+            setTicker(time);
+        }, 30);
+
+        emailTicker.current.start();
+        setTickerExist(true);
+
+        return () => {
+            if (emailTicker.current) {
+                emailTicker.current.stop();
+            }
+        };
+    }, []);
+
 
     const sendVerificationEmail = () => {
         // To-Do : Send an Email using an API
-        emailTicker.reset();
-
+        emailTicker.current.reset();
     }
-
-    useEffect(() => {
-        // Your function to run on the first render
-        console.log(isTickerExist)
-        if (!isTickerExist) emailTicker.start();
-        setTickerExist(true)
-    }, []); // Empty dependency array ensures the effect runs only once on mount
-
 
     const context: React.ReactNode = (
         <View style={{width: '100%', backgroundColor: '#28282B'}}>
@@ -45,25 +49,22 @@ export default function EmailVerificationScreen({navigation, props}) {
                     fontWeight: 'bold',
                 }}>코드 6자리 입력</Text>
             </View>
-
             <Text style={{
                 color: 'white',
                 fontSize: 14,
                 marginBottom: 40
             }}>계정 확인을 위해 위 메일로 보내드린 인증 코드를 입력해 주세요.</Text>
-
             <AuthenticationInput title={'인증 코드'} placeholder={'코드 6자리 입력'}
                                  right={<TextInput.Affix textStyle={{color: '#2edaff'}} text={ticker}/>}
                                  autoFocus={true}
                                  onChangeText={() => {
-                                 }}/>
-
+                                 }
+                                 }/>
             <View style={{marginTop: 25}}>
                 <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}}>
                     이메일 인증 완료
                 </Button>
             </View>
-
             <View style={{
                 paddingTop: 20
             }}>
