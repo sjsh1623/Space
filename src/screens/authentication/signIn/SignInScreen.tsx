@@ -1,5 +1,5 @@
 import AuthenticationTemplate from "../../../template/Authentication/AuthenticationTemplate";
-import {Button} from 'react-native-paper';
+import {Button, HelperText} from 'react-native-paper';
 import {Text, View} from "react-native";
 import {AuthenticationInput} from "element/Inputs";
 import {useState} from "react";
@@ -42,9 +42,9 @@ export default function SignInScreen() {
                 error={passwordError.isError}
                 onChangeText={(password) => setPassword(password)}/>
 
-            <Text style={{color: 'red', marginTop: 5, fontSize: 13}}>
+            <HelperText type="error" visible={emailError.isError || passwordError.isError} padding={"none"}>
                 {emailError.message || passwordError.message}
-            </Text>
+            </HelperText>
 
             <View style={{marginTop: 10}}>
                 <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}}>

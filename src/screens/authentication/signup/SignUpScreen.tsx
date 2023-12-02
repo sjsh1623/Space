@@ -1,5 +1,5 @@
 import AuthenticationTemplate from "template/Authentication/AuthenticationTemplate";
-import {Button, TextInput} from 'react-native-paper';
+import {Button, HelperText, TextInput} from 'react-native-paper';
 import {Text, View} from "react-native";
 import {useState} from "react";
 import {AuthenticationInput} from "../../../element/Inputs";
@@ -27,9 +27,9 @@ export default function SignUpScreen({navigation}) {
                     setEmail(email)
                 }}/>
 
-            <Text style={{color: 'red', marginTop: 5, fontSize: 13}}>
+            <HelperText type="error" visible={emailError.isError} padding={"none"}>
                 {emailError.message}
-            </Text>
+            </HelperText>
 
             <View style={{marginTop: 10}}>
                 <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}} onPress={() => {

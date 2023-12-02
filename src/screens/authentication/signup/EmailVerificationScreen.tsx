@@ -1,5 +1,5 @@
 import AuthenticationTemplate from "template/Authentication/AuthenticationTemplate";
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput, Button, Snackbar} from 'react-native-paper';
 import {Text, View, TouchableOpacity} from "react-native";
 import {useEffect, useRef, useState} from "react";
 import {AuthenticationInput} from "element/Inputs";
@@ -15,6 +15,11 @@ export default function EmailVerificationScreen({navigation, props}) {
     const [isTickerExist, setTickerExist] = useState<boolean>(false);
     const emailTicker = useRef<Ticker | null>(null);
     const [ticker, setTicker] = useState<string>('');
+    const [visible, setVisible] = useState(false);
+
+    const onToggleSnackBar = () => setVisible(true);
+    const onDismissSnackBar = () => setVisible(false);
+
 
     useEffect(() => {
         emailTicker.current = new Ticker((time) => {
@@ -60,11 +65,13 @@ export default function EmailVerificationScreen({navigation, props}) {
                                  onChangeText={() => {
                                  }
                                  }/>
+
             <View style={{marginTop: 25}}>
                 <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}}>
                     이메일 인증 완료
                 </Button>
             </View>
+
             <View style={{
                 paddingTop: 20
             }}>
@@ -73,12 +80,24 @@ export default function EmailVerificationScreen({navigation, props}) {
                 }}>
                     <Text style={{textDecorationLine: 'underline', color: 'white', marginTop: 15}} onPress={() => {
                         sendVerificationEmail()
+                        onToggleSnackBar()
                     }}>인증 코드 재전송</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
+
+    const toastContext: React.ReactNode = (
+        <Snackbar
+            visible={visible}
+            onDismiss={onDismissSnackBar}
+            duration={800}
+            >
+            이메일을 다시 전송했어요.
+        </Snackbar>
+    )
+
     return (
-        <AuthenticationTemplate title={'이메일 계정 인증'} context={context}/>
+        <AuthenticationTemplate title={'이메일 계정 인증'} context={context} toastContext={toastContext}/>
     )
 }
