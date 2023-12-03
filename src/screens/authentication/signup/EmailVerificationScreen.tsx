@@ -9,19 +9,20 @@ interface emailVerification {
     email: String
 }
 
-export default function EmailVerificationScreen({navigation, props}) {
+export default function EmailVerificationScreen({navigation, route}) {
+    const {email} = route.params;
     const [error, setError] = useState<boolean>(false);
-    const [email, setEmail] = useState<string>('');
+    const [code, setCode] = useState<string>('');
     const [isTickerExist, setTickerExist] = useState<boolean>(false);
     const emailTicker = useRef<Ticker | null>(null);
     const [ticker, setTicker] = useState<string>('');
     const [visible, setVisible] = useState(false);
-
     const onToggleSnackBar = () => setVisible(true);
     const onDismissSnackBar = () => setVisible(false);
 
 
     useEffect(() => {
+        // To-Do : Send an Email using an API
         emailTicker.current = new Ticker((time) => {
             setTicker(time);
         }, 30);
@@ -41,6 +42,18 @@ export default function EmailVerificationScreen({navigation, props}) {
         // To-Do : Send an Email using an API
         emailTicker.current.reset();
     }
+
+    const validateCode = () => {
+        // To-Do : Send Validate Code API
+        // To-Do if it does not match set error as true
+        setError(false);
+        emailTicker.current.stop();
+    }
+
+    const moveNext = () => {
+        if (!error) navigation.navigate('', {email: email})
+    }
+
 
     const context: React.ReactNode = (
         <View style={{width: '100%', backgroundColor: '#28282B'}}>
@@ -62,12 +75,13 @@ export default function EmailVerificationScreen({navigation, props}) {
             <AuthenticationInput title={'인증 코드'} placeholder={'코드 6자리 입력'}
                                  right={<TextInput.Affix textStyle={{color: '#2edaff'}} text={ticker}/>}
                                  autoFocus={true}
-                                 onChangeText={() => {
-                                 }
-                                 }/>
+                                 onChangeText={setCode}/>
 
             <View style={{marginTop: 25}}>
-                <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}}>
+                <Button mode="contained" style={{borderRadius: 5, backgroundColor: '#1167b1'}} onPress={() => {
+                    validateCode()
+                    moveNext()
+                }}>
                     이메일 인증 완료
                 </Button>
             </View>
@@ -92,7 +106,7 @@ export default function EmailVerificationScreen({navigation, props}) {
             visible={visible}
             onDismiss={onDismissSnackBar}
             duration={800}
-            >
+        >
             이메일을 다시 전송했어요.
         </Snackbar>
     )

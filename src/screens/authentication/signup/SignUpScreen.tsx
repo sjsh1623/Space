@@ -14,7 +14,7 @@ export default function SignUpScreen({navigation}) {
         setEmailError(emailErrorInfo);
         if(!emailErrorInfo.isError) {
             setEmailError(emailErrorInfo);
-            navigation.navigate('EmailVerification', email)
+            navigation.navigate('EmailVerification', {email: email})
         }
     }
 
@@ -23,9 +23,7 @@ export default function SignUpScreen({navigation}) {
             <AuthenticationInput
                 title={'이메일'}
                 placeholder={'abc@space-parking.com'}
-                onChangeText={(email) => {
-                    setEmail(email)
-                }}/>
+                onChangeText={setEmail}/>
 
             <HelperText type="error" visible={emailError.isError} padding={"none"}>
                 {emailError.message}

@@ -18,6 +18,7 @@ interface AuthenticationField {
     right?: React.ReactNode
     autoFocus?: boolean
     error?: boolean,
+    secureTextEntry? : boolean,
 }
 
 export function AuthenticationInput(AuthenticationField: AuthenticationField) {
@@ -41,6 +42,7 @@ export function AuthenticationInput(AuthenticationField: AuthenticationField) {
                 error={AuthenticationField.error}
                 onFocus={AuthenticationField.onFocus}
                 onBlur={AuthenticationField.onBlur}
+                secureTextEntry={AuthenticationField.secureTextEntry}
             />
         </View>
     )

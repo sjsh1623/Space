@@ -15,10 +15,10 @@ export const validateEmail = (email: string): MessageState => {
     }
 };
 
-export const validatePassword = (password: string): MessageState => {
+export const validatePassword = (password: string, passwordMessage: string = ''): MessageState => {
     const isValidate = passwordPattern.test(password);
     return {
-        message: isValidate ? '' : '영문, 숫자, 특수문자 형식으로 다시 입력해주세요.',
+        message: isValidate ? passwordMessage : '영문, 숫자, 특수문자 형식으로 다시 입력해주세요.',
         isError: !isValidate
     }
 }
