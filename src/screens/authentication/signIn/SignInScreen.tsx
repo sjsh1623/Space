@@ -1,4 +1,4 @@
-import AuthenticationTemplate from "../../../template/Authentication/AuthenticationTemplate";
+import AuthenticationTemplate from "../../../template/authentication/AuthenticationTemplate";
 import {Button, HelperText} from 'react-native-paper';
 import {Text, View} from "react-native";
 import {AuthenticationInput} from "element/Inputs";

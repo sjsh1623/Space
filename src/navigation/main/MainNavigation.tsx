@@ -1,19 +1,17 @@
 import * as React from 'react';
 import {BottomNavigation, DefaultTheme, Text, useTheme} from 'react-native-paper';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-import {MaterialIcons} from '@expo/vector-icons';
-import PrivateMain from "../../screens/main/private/PrivateMain";
 import SpaceMap from "../../screens/main/spaceMap/SpaceMap";
 import ManagerHome from "../../screens/main/manager/ManagerHome";
-import {EasingFunction} from "react-native";
+import MyParkingNavigation from "./myParking/MyParkingNavigation";
 
 const MainNavigation = () => {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         {
-            key: 'private',
-            title: '프라이빗',
+            key: 'myParking',
+            title: '마이 주차',
             focusedIcon: ({size, color}) => <MaterialCommunityIcons name="greenhouse" size={size} color={color}/>
         },
         {
@@ -31,7 +29,7 @@ const MainNavigation = () => {
 
     const renderScene = BottomNavigation.SceneMap({
         map: SpaceMap,
-        private: PrivateMain,
+        myParking: MyParkingNavigation,
         manager: ManagerHome,
     });
 

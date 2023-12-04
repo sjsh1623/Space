@@ -1,4 +1,4 @@
-import AuthenticationTemplate from "template/Authentication/AuthenticationTemplate";
+import AuthenticationTemplate from "template/authentication/AuthenticationTemplate";
 import {TextInput, Button, Snackbar} from 'react-native-paper';
 import {Text, View, TouchableOpacity} from "react-native";
 import {useEffect, useRef, useState} from "react";

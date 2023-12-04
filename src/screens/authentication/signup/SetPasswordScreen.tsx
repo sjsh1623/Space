@@ -1,4 +1,4 @@
-import AuthenticationTemplate from "../../../template/Authentication/AuthenticationTemplate";
+import AuthenticationTemplate from "../../../template/authentication/AuthenticationTemplate";
 import {TextInput, Button, HelperText, MD3Colors} from 'react-native-paper';
 import {Text, StyleSheet, View, SafeAreaView, TouchableOpacity, Image} from "react-native";
 import {useEffect, useRef, useState} from "react";

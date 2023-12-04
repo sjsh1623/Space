@@ -2,7 +2,7 @@ import {StyleSheet, View, SafeAreaView, TouchableOpacity, Image} from "react-nat
 import {Text} from 'react-native-paper';
 import {Ionicons} from '@expo/vector-icons';
 import {Fragment} from "react";
-import LoginTemplate from "../../../template/Authentication/LoginTemplate";
+import LoginTemplate from "../../../template/authentication/LoginTemplate";
 
 
 export default function EntryScreen({navigation}) {
