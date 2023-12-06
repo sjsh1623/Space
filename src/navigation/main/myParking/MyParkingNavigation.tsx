@@ -9,7 +9,14 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function MyParkingNavigation() {
     return (
-        <Tab.Navigator style={{marginTop: '12%'}}>
+        <Tab.Navigator style={{marginTop: '12%'}}   screenOptions={({ route }) => ({
+            tabBarIndicatorStyle : {
+                borderWidth: 1,
+                borderColor: 'black',
+                width: 100,
+                marginLeft: 50
+            },
+        })}>
             <Tab.Screen name="북마크" component={MyParkingMain}/>
             <Tab.Screen name="프라이빗" component={PrivateMain}/>
         </Tab.Navigator>
