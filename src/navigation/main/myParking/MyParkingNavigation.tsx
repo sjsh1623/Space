@@ -3,28 +3,17 @@ import MyParkingMain from "screens/main/myParking/MyParkingMain";
 import PrivateMain from "screens/main/myParking/PrivateMain";
 import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import {Searchbar} from 'react-native-paper';
-import {SafeAreaView, Text} from "react-native";
+import {SafeAreaView, Text, View} from "react-native";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function MyParkingNavigation() {
     return (
-        <SafeAreaView  style={{
+        <SafeAreaView style={{
             flex: 1,
             flexDirection: 'column',
         }}>
-            <Searchbar
-                placeholder="Search"
-                value={""}
-                elevation = {3}
-                style={{
-                    width:'80%',
-                    shadowOpacity:10,
-                    shadowRadius:10,
-
-                }}
-            />
-            <Tab.Navigator  screenOptions={({route}) => ({
+            <Tab.Navigator screenOptions={({route}) => ({
                 tabBarIndicatorStyle: {
                     borderWidth: 1,
                     borderColor: 'black',
@@ -50,6 +39,6 @@ export default function MyParkingNavigation() {
             </Tab.Navigator>
         </SafeAreaView>
 
-)
-    ;
+    )
+        ;
 }
