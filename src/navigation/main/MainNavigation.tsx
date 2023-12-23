@@ -4,14 +4,16 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 import SpaceMap from "../../screens/main/spaceMap/SpaceMap";
 import ManagerHome from "../../screens/main/manager/ManagerHome";
 import MyParkingNavigation from "./myParking/MyParkingNavigation";
+import MyParkingMain from "../../screens/main/myParking/MyParkingMain";
+import PrivateMain from "../../screens/main/myParking/PrivateMain";
 
 const MainNavigation = () => {
 
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         {
-            key: 'myParking',
-            title: '마이 주차',
+            key: 'bookmark',
+            title: '북마크',
             focusedIcon: ({size, color}) => <MaterialCommunityIcons name="greenhouse" size={size} color={color}/>
         },
         {
@@ -20,17 +22,16 @@ const MainNavigation = () => {
             focusedIcon: ({size, color}) => <MaterialCommunityIcons name="parking" size={size} color={color}/>,
         },
         {
-            key: 'manager',
-            title: '관리',
-            focusedIcon: ({size, color}) => <MaterialCommunityIcons name="account-supervisor-outline" size={size}
-                                                                    color={color}/>
+            key: 'private',
+            title: '프라이빗',
+            focusedIcon: ({size, color}) => <MaterialCommunityIcons name="account-supervisor-outline" size={size} color={color}/>
         },
     ]);
 
     const renderScene = BottomNavigation.SceneMap({
-        map: SpaceMap,
+        bookmark: MyParkingMain,
         myParking: MyParkingNavigation,
-        manager: ManagerHome,
+        private: PrivateMain,
     });
 
     return (
