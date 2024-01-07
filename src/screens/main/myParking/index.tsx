@@ -2,7 +2,7 @@ import {View, SafeAreaView} from "react-native";
 import {Text} from "react-native-paper"
 import {CardWithProfile} from "../../../element/Card";
 
-export const MyParkingMain = () => {
+export const Index = () => {
     return (
         <SafeAreaView>
             <Text variant="titleLarge">북마크</Text>
@@ -20,4 +20,4 @@ export const MyParkingMain = () => {
     )
 }
 
-export default MyParkingMain;
+export default Index;

@@ -1,5 +1,5 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import MyParkingMain from "screens/main/myParking/MyParkingMain";
+import Index from "screens/main/myParking";
 import PrivateMain from "screens/main/myParking/PrivateMain";
 import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import {Searchbar} from 'react-native-paper';
@@ -29,7 +29,7 @@ export default function MyParkingNavigation() {
                     tabBarIcon: ({color}) => (
                         <MaterialIcons name="bookmark-outline" color={color} size={20}/>
                     ),
-                }} component={MyParkingMain}/>
+                }} component={Index}/>
                 <Tab.Screen name="private" options={{
                     tabBarLabel: '프라이빗',
                     tabBarIcon: ({color}) => (
