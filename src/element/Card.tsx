@@ -20,3 +20,7 @@ export const CardWithProfile = () => {
         />
     )
 }
+
+export const CardWithImageAndText = () => {
+
+}

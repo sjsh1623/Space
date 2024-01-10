@@ -6,7 +6,6 @@ import Map from "../../screens/main/main";
 import SettingMain from "../../screens/main/setting";
 
 const MainNavigation = () => {
-
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         {
