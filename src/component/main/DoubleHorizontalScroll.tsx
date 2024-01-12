@@ -1,7 +1,7 @@
 import {ScrollView, View, Text, StyleSheet} from "react-native";
 import {Surface} from "react-native-paper";
 
-const HorizontalScroll = () => {
+const DoubleHorizontalScroll = () => {
     return (
         <View style={styles.container}>
             <Text style={{fontSize: 16, margin: 5, marginBottom: 15, fontWeight: 500}}>
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HorizontalScroll;
+export default DoubleHorizontalScroll;

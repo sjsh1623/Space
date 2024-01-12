@@ -5,7 +5,7 @@ import Index from "../../screens/main/parking";
 import Map from "../../screens/main/main";
 import SettingMain from "../../screens/main/setting";
 
-const MainNavigation = () => {
+const BottomCustomNavigation = () => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         {
@@ -25,7 +25,7 @@ const MainNavigation = () => {
         },
     ]);
 
-    const renderScene = BottomNavigation.SceneMap({
+    const renderScene = BottomCustomNavigation.SceneMap({
         Parking: Index,
         Map: Map,
         Setting: SettingMain,
@@ -44,4 +44,4 @@ const MainNavigation = () => {
     );
 };
 
-export default MainNavigation;
+export default BottomCustomNavigation;

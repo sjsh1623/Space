@@ -1,6 +1,7 @@
-import {View, Text, SafeAreaView} from "react-native";
+import {View, Text, SafeAreaView, ScrollView} from "react-native";
 import {Appbar} from 'react-native-paper';
-import HorizontalScroll from "../../../component/main/HorizontalScroll";
+import DoubleHorizontalScroll from "../../../component/main/DoubleHorizontalScroll";
+import SingleHorizontalScroll from "../../../component/main/SingleHorizontalScroll";
 
 export const index = () => {
 
@@ -27,8 +28,10 @@ export const index = () => {
             height: '100%',
         }}>
             <Header/>
-            <HorizontalScroll/>
-
+            <ScrollView showsHorizontalScrollIndicator={false}>
+                <DoubleHorizontalScroll/>
+                <SingleHorizontalScroll/>
+            </ScrollView>
         </SafeAreaView>
     )
 }
