@@ -4,7 +4,7 @@ import {Surface} from "react-native-paper";
 const SingleHorizontalScroll = () => {
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 16, margin: 5, marginBottom: 15, fontWeight: 600}}>
+            <Text style={{fontSize: 17, margin: 5, marginBottom: 15, fontWeight: 600}}>
                Something
             </Text>
 
@@ -89,8 +89,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     item: {
-        width: 150, // Adjust the width as needed
-        height: 100, // Adjust the height as needed
+        width: 200, // Adjust the width as needed
+        height: 130, // Adjust the height as needed
         padding: 10,
         margin: 5,
         borderRadius: 8,

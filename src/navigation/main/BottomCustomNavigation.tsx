@@ -1,21 +1,21 @@
 import * as React from 'react';
 import {BottomNavigation} from 'react-native-paper';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-import Index from "../../screens/main/parking";
-import Map from "../../screens/main/main";
-import SettingMain from "../../screens/main/setting";
+import Parking from "screens/main/parking";
+import HomeNav from "navigation/main/home/HomeNavigation";
+import Setting from "screens/main/setting";
 
 const BottomCustomNavigation = () => {
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         {
-            key: 'Parking',
-            title: '주차장',
+            key: 'HomeNav',
+            title: '홈',
             focusedIcon: ({size, color}) => <MaterialCommunityIcons name="greenhouse" size={size} color={color}/>
         },
         {
-            key: 'Map',
-            title: '지도',
+            key: 'Parking',
+            title: '주차',
             focusedIcon: ({size, color}) => <MaterialCommunityIcons name="parking" size={size} color={color}/>,
         },
         {
@@ -26,9 +26,9 @@ const BottomCustomNavigation = () => {
     ]);
 
     const renderScene = BottomNavigation.SceneMap({
-        Parking: Index,
-        Map: Map,
-        Setting: SettingMain,
+        HomeNav: HomeNav,
+        Parking: Parking,
+        Setting: Setting,
     });
 
     return (
