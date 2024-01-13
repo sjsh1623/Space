@@ -4,7 +4,7 @@ import {Surface} from "react-native-paper";
 const DoubleHorizontalScroll = () => {
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 16, margin: 5, marginBottom: 15, fontWeight: 500}}>
+            <Text style={{fontSize: 16, margin: 5, marginBottom: 15, fontWeight: 600}}>
                 30분 거리{'\n'}가볼 만한 곳 Best 10
             </Text>
 

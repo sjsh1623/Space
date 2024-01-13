@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {BottomNavigation, DefaultTheme, Text, useTheme} from 'react-native-paper';
+import {BottomNavigation} from 'react-native-paper';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import Index from "../../screens/main/parking";
 import Map from "../../screens/main/main";
@@ -25,7 +25,7 @@ const BottomCustomNavigation = () => {
         },
     ]);
 
-    const renderScene = BottomCustomNavigation.SceneMap({
+    const renderScene = BottomNavigation.SceneMap({
         Parking: Index,
         Map: Map,
         Setting: SettingMain,
