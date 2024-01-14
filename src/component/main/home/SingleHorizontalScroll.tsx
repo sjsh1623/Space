@@ -1,21 +1,21 @@
-import {SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
+import {ScrollView, StyleSheet, Text, View} from "react-native";
 import {Surface} from "react-native-paper";
 
 const SingleHorizontalScroll = () => {
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 17, margin: 5, marginBottom: 15, fontWeight: 600}}>
-               Something
+            <Text style={{fontSize: 20, margin: 5, marginBottom: 15, fontWeight: 600, paddingHorizontal: 25}}>
+                Something
             </Text>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <View>
+                <View style={{paddingHorizontal: 25}}>
                     <View style={styles.rowContainer}>
                         <View>
                             <Surface style={styles.item} elevation={1}>
                                 <Text>Image</Text>
                             </Surface>
-                            <View  style={{marginLeft: 5}}>
+                            <View style={{marginLeft: 5}}>
                                 <Text style={{fontWeight: 500}}>Something</Text>
                                 <Text style={{fontWeight: 500}}>혼잡 | 여유</Text>
                             </View>
@@ -24,7 +24,7 @@ const SingleHorizontalScroll = () => {
                             <Surface style={styles.item} elevation={1}>
                                 <Text>Image</Text>
                             </Surface>
-                            <View  style={{marginLeft: 5}}>
+                            <View style={{marginLeft: 5}}>
                                 <Text style={{fontWeight: 500}}>Something</Text>
                                 <Text style={{fontWeight: 500}}>혼잡 | 여유</Text>
                             </View>
@@ -33,7 +33,7 @@ const SingleHorizontalScroll = () => {
                             <Surface style={styles.item} elevation={1}>
                                 <Text>Image</Text>
                             </Surface>
-                            <View  style={{marginLeft: 5}}>
+                            <View style={{marginLeft: 5}}>
                                 <Text style={{fontWeight: 500}}>Something</Text>
                                 <Text style={{fontWeight: 500}}>혼잡 | 여유</Text>
                             </View>
@@ -42,7 +42,7 @@ const SingleHorizontalScroll = () => {
                             <Surface style={styles.item} elevation={1}>
                                 <Text>Image</Text>
                             </Surface>
-                            <View  style={{marginLeft: 5}}>
+                            <View style={{marginLeft: 5}}>
                                 <Text style={{fontWeight: 500}}>Something</Text>
                                 <Text style={{fontWeight: 500}}>혼잡 | 여유</Text>
                             </View>
@@ -51,7 +51,7 @@ const SingleHorizontalScroll = () => {
                             <Surface style={styles.item} elevation={1}>
                                 <Text>Image</Text>
                             </Surface>
-                            <View  style={{marginLeft: 5}}>
+                            <View style={{marginLeft: 5}}>
                                 <Text style={{fontWeight: 500}}>Something</Text>
                                 <Text style={{fontWeight: 500}}>혼잡 | 여유</Text>
                             </View>
@@ -60,7 +60,7 @@ const SingleHorizontalScroll = () => {
                             <Surface style={styles.item} elevation={1}>
                                 <Text>Image</Text>
                             </Surface>
-                            <View  style={{marginLeft: 5}}>
+                            <View style={{marginLeft: 5}}>
                                 <Text style={{fontWeight: 500}}>Something</Text>
                                 <Text style={{fontWeight: 500}}>혼잡 | 여유</Text>
                             </View>
@@ -69,7 +69,7 @@ const SingleHorizontalScroll = () => {
                             <Surface style={styles.item} elevation={1}>
                                 <Text>Image</Text>
                             </Surface>
-                            <View  style={{marginLeft: 5}}>
+                            <View style={{marginLeft: 5}}>
                                 <Text style={{fontWeight: 500}}>Something</Text>
                                 <Text style={{fontWeight: 500}}>혼잡 | 여유</Text>
                             </View>
@@ -82,9 +82,7 @@ const SingleHorizontalScroll = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        marginLeft: 20
-    },
+    container: {},
     rowContainer: {
         flexDirection: 'row',
     },

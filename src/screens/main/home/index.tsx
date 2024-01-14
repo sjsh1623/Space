@@ -1,7 +1,7 @@
-import {SafeAreaView, ScrollView} from "react-native";
+import {SafeAreaView, ScrollView, View, StyleSheet} from "react-native";
 import {Appbar} from 'react-native-paper';
-import DoubleHorizontalScroll from "component/main/DoubleHorizontalScroll";
-import SingleHorizontalScroll from "component/main/SingleHorizontalScroll";
+import DoubleHorizontalScroll from "component/main/home/DoubleHorizontalScroll";
+import SingleHorizontalScroll from "component/main/home/SingleHorizontalScroll";
 
 export const index = ({navigation}) => {
 

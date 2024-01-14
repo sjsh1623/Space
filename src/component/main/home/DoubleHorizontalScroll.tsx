@@ -4,12 +4,12 @@ import {Surface} from "react-native-paper";
 const DoubleHorizontalScroll = () => {
     return (
         <View style={styles.container}>
-            <Text style={{fontSize: 17, margin: 5, marginBottom: 15, fontWeight: 600}}>
+            <Text style={{fontSize: 20, margin: 5, marginBottom: 15, fontWeight: 600, paddingHorizontal: 25}}>
                 30분 거리{'\n'}가볼 만한 곳 Best 10
             </Text>
 
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                <View>
+                <View style={{paddingHorizontal: 25}}>
                     <View style={styles.rowContainer}>
                         <Surface style={styles.item} elevation={1}>
                             <Text style={styles.text}>1</Text>
@@ -62,7 +62,7 @@ const DoubleHorizontalScroll = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginLeft: 20
+
     },
     rowContainer: {
         flexDirection: 'row',
