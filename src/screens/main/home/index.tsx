@@ -32,7 +32,7 @@ export const index = ({navigation}) => {
         }}>
             <Header/>
             <ScrollView showsHorizontalScrollIndicator={false}>
-                <DoubleHorizontalScroll/>
+                <DoubleHorizontalScroll navigation={navigation}/>
                 <SingleHorizontalScroll/>
             </ScrollView>
         </SafeAreaView>

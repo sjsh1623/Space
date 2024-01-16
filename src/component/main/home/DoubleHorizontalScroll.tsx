@@ -1,7 +1,7 @@
-import {ScrollView, View, Text, StyleSheet} from "react-native";
+import {ScrollView, View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import {Surface} from "react-native-paper";
 
-const DoubleHorizontalScroll = () => {
+const DoubleHorizontalScroll = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Text style={{fontSize: 20, margin: 5, marginBottom: 15, fontWeight: 600, paddingHorizontal: 25}}>
@@ -11,10 +11,14 @@ const DoubleHorizontalScroll = () => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <View style={{paddingHorizontal: 25}}>
                     <View style={styles.rowContainer}>
-                        <Surface style={styles.item} elevation={1}>
-                            <Text style={styles.text}>1</Text>
-                            <Text style={{marginBottom: 5}}>에버랜드</Text>
-                        </Surface>
+                        <TouchableOpacity onPress={() => {
+                            navigation.navigate('Detail')
+                        }}>
+                            <Surface style={styles.item} elevation={1}>
+                                <Text style={styles.text}>1</Text>
+                                <Text style={{marginBottom: 5}}>에버랜드</Text>
+                            </Surface>
+                        </TouchableOpacity>
                         <Surface style={styles.item} elevation={1}>
                             <Text style={styles.text}>3</Text>
                             <Text style={{marginBottom: 5}}>에버랜드</Text>
@@ -61,9 +65,7 @@ const DoubleHorizontalScroll = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-
-    },
+    container: {},
     rowContainer: {
         flexDirection: 'row',
     },
